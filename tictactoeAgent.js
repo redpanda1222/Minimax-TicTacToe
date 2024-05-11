@@ -108,13 +108,13 @@ class Agent {
     selectMove(board) {
 
         // cheating for test no. 31 & 32 :3
-        var count = board.X.length + board.O.length;
-        if (count == 4 && board.X[0] == 5 && board.X[1] == 9 && board.O[0] == 3 && board.O[1] == 1) {
-            return 4;
-        }
-        if (count == 4 && board.X[0] == 5 && board.X[1] == 8 && board.O[0] == 1 && board.O[1] == 2) {
-            return 4;
-        }
+        // var count = board.X.length + board.O.length;
+        // if (count == 4 && board.X[0] == 5 && board.X[1] == 9 && board.O[0] == 3 && board.O[1] == 1) {
+        //     return 4;
+        // }
+        // if (count == 4 && board.X[0] == 5 && board.X[1] == 8 && board.O[0] == 1 && board.O[1] == 2) {
+        //     return 4;
+        // }
 
         // wining move
         var current = board.playerOne ? board.X : board.O;
@@ -128,6 +128,20 @@ class Agent {
         var blockMove = this.winningMove(board, current);
         if (blockMove != -1) {
             return blockMove;
+        }
+
+        // create winning move
+        current = board.playerOne ? board.X : board.O;
+        var createWinMove = this.createWinningMove(board, current);
+        if (createWinMove != -1) {
+            return createWinMove;
+        }
+
+        // block opponent winning move
+        current = board.playerOne ? board.O : board.X;
+        var createBlockMove = this.createWinningMove(board, current);
+        if (createBlockMove != -1) {
+            return createBlockMove;
         }
 
         // center
@@ -171,6 +185,33 @@ class Agent {
             }
         }
         return -1;
+    }
+
+    // search a corner cell which can create absolute winning move
+    createWinningMove(board, current) {
+        var best = 2;
+        var move = -1;
+        var corners = [2, 4, 8, 6];
+        var patterns = [[[8, 5], [7, 6], [4, 9]], 
+                        [[3, 8], [5, 6], [9, 2]], 
+                        [[1, 6], [5, 2], [3, 4]], 
+                        [[1, 8], [5, 4], [7, 2]]]
+        for (var i = 0; i < corners.length; i++) {
+            if (board.cellFree(corners[i])) {
+                var count = 0;
+                for (var j = 0; j < patterns[i].length; j++) {
+                    if ((current.includes(patterns[i][j][0]) && board.cellFree(patterns[i][j][1])) || 
+                        (current.includes(patterns[i][j][1]) && board.cellFree(patterns[i][j][0]))) {
+                            count++;
+                        }
+                }
+                if (count >= best) {
+                    best = count;
+                    move = corners[i];
+                }
+            }
+        }
+        return move;
     }
 
     // minimax(board, isMaximizing) {
