@@ -120,7 +120,7 @@ window.onload = function () {
     var playerTwo = new Agent();
 
     newGame.onclick = function () {
-        gb.reset();
+        gb.reset()
         gb.playGame(playerOne, playerTwo);
     };
 
@@ -138,9 +138,9 @@ window.onload = function () {
     // draws
     games.push([]);
     games.push([5]);
-    games.push([1]);
-    games.push([8]);
-    games.push([8, 5]);
+    games.push([1]); 
+    games.push([8]); 
+    games.push([8, 5]); 
     games.push([5, 8]);
     games.push([5, 6]);
     games.push([5, 2]);
@@ -164,13 +164,13 @@ window.onload = function () {
 
     // win
     games.push([5, 8, 2, 1]);
-    games.push([5, 9, 7, 2]);
-    games.push([5, 7, 1]);
-    games.push([5, 3, 8]);
+    games.push([5, 9, 7, 2]); 
+    games.push([5, 7, 1]); 
+    games.push([5, 3, 8]); 
     games.push([5, 7, 6]);
-    games.push([8, 3, 1]);
-    games.push([5, 3, 9]);
-    games.push([5, 1]);
+    games.push([8, 3, 1]); 
+    games.push([5, 3, 9]); //
+    games.push([5, 1]); //
     games.push([5, 9]);
     games.push([5, 3]);
     games.push([5, 7]);
@@ -189,6 +189,32 @@ window.onload = function () {
     games.push([7, 5, 9, 4, 2]);
     games.push([7, 5, 9, 2, 6]);
 
+    // var my_agent = new Agent();
+    // var flag = false;
+    // console.log("Agent is created!");
+    // var my_list = [5, 1, 8, 2];
+    // gb.reset();
+    // for (var i = 0; i < my_list.length; i++) {
+    //     gb.move(my_list[i]);
+    // }
+    // console.log(my_agent.selectMove(gb));
+    // var result = my_agent.minimax2(gb, true, 0);
+    // console.log("math result: " + result[0]);
+    // console.log("total move: " + result[1]);
+    // console.log("cell: " + result[2]);
+    // for (var i = 1; i <= 9; i++) {
+    //     if (gb.cellFree(i)) {
+    //         var newBoard = gb.clone();
+    //         newBoard.move(i);
+    //         var result2 = my_agent.minimax2(newBoard, flag, 1);
+    //         console.log(i + " " + result2);
+    //         if (result2[0] == 1 && result2[1] == 1) {
+    //             break;
+    //         }
+    //     }
+    // }
+    // console.log(my_agent.selectMove(gb));
+    // console.log(my_agent.selectMove2(gb));
 
     var indexer = 0;
     var score = 0;
@@ -198,6 +224,8 @@ window.onload = function () {
             if (cond === states[indexer++]) {
                 score++;
                 console.log(cond === states[indexer - 1]);
+            } else {
+                console.log(indexer - 1);
             }
         }
         if (indexer < games.length) {
