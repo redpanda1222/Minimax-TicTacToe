@@ -137,7 +137,7 @@ class Agent {
             return createWinMove;
         }
 
-        // block opponent winning move
+        // block opponent from creating winning move
         current = board.playerOne ? board.O : board.X;
         var createBlockMove = this.createWinningMove(board, current);
         if (createBlockMove != -1) {
